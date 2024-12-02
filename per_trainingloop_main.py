@@ -1,5 +1,6 @@
 import gymnasium as gym
 import gym_trading_env
+import pickle
 from utils import load_stock_data, plot_epsilon_and_rewards, plot_portfolio_returns
 from agent import PERAgent
 
@@ -8,7 +9,7 @@ df = load_stock_data(url=url)
 env = gym.make("TradingEnv",
                name= "BTCUSD",
                df = df,
-               positions = [ -1, 0, 1],
+               positions = [ -0.5, 0, 1],
                trading_fees = 0.01/100,
                borrow_interest_rate= 0.0003/100,
               #  reward_function = c_reward,
@@ -43,3 +44,8 @@ for i in range(episodes):
     print("Episode: ", i+1, ", Cum rewards: ", rewards, ", Agent exploration rate: ", agent.eps, ", Steps taken: ", agent.iter_cntr)
 plot_epsilon_and_rewards(epsilon_history, cum_reward_history, "per_training_rewards.png")
 plot_portfolio_returns(returns, "per_portfolio_returns_training.png")
+
+state_dict = agent.get_params()
+with open('per_agent_state_dict.p','wb') as f:
+    pickle.dump(state_dict,f)
+print("Plots and state dictionary saved successfully")

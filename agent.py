@@ -118,6 +118,11 @@ class DeepQAgent:
             self.q_target.set_params(self.q_eval.state_dict())
 
         self.iter_cntr += 1
+    def set_params(self, state_dict):
+        self.q_eval.set_params(state_dict)
+        self.q_target.set_params(state_dict)
+    def get_params(self):
+        return self.q_target.state_dict()
 
 class PERAgent:
     def __init__(self, obs_space, n_actions, lr=0.001, learn_update_rule="SGD", batch_size=512, update_frequency=1000,
@@ -231,4 +236,9 @@ class PERAgent:
 
         self.eps = max(self.eps_min, self.eps - self.eps_decay)
         self.iter_cntr += 1
+    def set_params(self, state_dict):
+        self.q_eval.set_params(state_dict)
+        self.q_target.set_params(state_dict)
+    def get_params(self):
+        return self.q_target.state_dict()
 
