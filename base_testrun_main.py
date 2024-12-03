@@ -33,4 +33,4 @@ for i in range(episodes):
     ret = float(env.unwrapped.get_metrics()["Portfolio Return"].strip("%"))
     returns.append(ret)
     print("Episode: ",i+1, ", Portfolio Return: ",ret)
-plot_portfolio_returns(returns, "per_portfolio_returns_test.png")
+plot_portfolio_returns(returns, "base_portfolio_returns_test.png")
